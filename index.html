@@ -6,8 +6,10 @@
   <title>Prediction Function Internal Testing Widget</title>
 </head>
 <body>
-  <small>v0.1.0</small>
+
   <form>
+
+    <small>v0.1.1</small>
     <div class="form-group">
       <label for="password">Password</label>
       <input type="email" class="form-control" id="password" aria-describedby="password_help">
@@ -77,6 +79,7 @@
         "basket_upcs": "4225"
       }
       console.log("Button clicked")
+      $("#responseInfo").text()
       $.ajax(settings).done((data) => {
         console.log(data)
         $("#responseInfo").text(JSON.stringify(data, null, 2))
