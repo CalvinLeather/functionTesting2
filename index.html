@@ -16,7 +16,7 @@
     <div class="form-group">
       <label for="modelversion">Model Version</label>
       <select class="form-control" id="modelversion">
-        <option value="https://www.google.com">v1</option>
+        <option value="https://aholdtestingpredictionfunction.azurewebsites.net/api/prediction_function_v1">v1</option>
       </select>
       <small id="modelversion_help" class="form-text text-muted">Select a model version to use.</small>
     </div>
@@ -27,8 +27,6 @@
         <option>1</option>
         <option>2</option>
         <option>3</option>
-        <option>4</option>
-        <option>5</option>
       </select>
       <small id="pricezone_help" class="form-text text-muted">Select a price zone.</small>
     </div>
@@ -37,14 +35,9 @@
       <input type="password" class="form-control" id="customerid">
     </div>
     <div class="form-group">
-      <label for="exampleInputEmail1">PODID (right now, UPC/PLU)</label>
-      <input type="text" class="form-control" id="podid" aria-describedby="emailHelp">
+      <label for="podid">PODID (right now, UPC/PLU)</label>
+      <input type="email" class="form-control" id="podid" aria-describedby="emailHelp">
       <small id="podid_help" class="form-text text-muted">Please enter the N digit PODID.</small>
-    </div>
-     <div class="form-group">
-      <label for="basket">Basket PODIDs (right now, UPC/PLU)</label>
-      <input type="text" class="form-control" id="basket" aria-describedby="basket_help">
-      <small id="basket_help" class="form-text text-muted">Enter basket IDs seperated by commas.</small>
     </div>
   </form>
   <button class="btn btn-primary" id="requestButton">Submit</button>
@@ -66,6 +59,12 @@
     }
     $("#requestButton").click(()=>{
       settings['url'] = $("#modelversion").val()
+      settings['data'] = {
+        "code": $("#password").val(),
+        "customer_id": $("#customerid").val(),
+        "current_item_upc": $("#podid").val(),
+        "basket_upcs": ""
+      }
       console.log("Button clicked")
       $.ajax(settings).done((data) => {
         console.log(data)
