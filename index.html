@@ -32,7 +32,7 @@
     </div>
     <div class="form-group">
       <label for="customerid">Customer ID</label>
-      <input type="password" class="form-control" id="customerid">
+      <input type="text" class="form-control" id="customerid">
     </div>
     <div class="form-group">
       <label for="podid">PODID (right now, UPC/PLU)</label>
@@ -42,11 +42,22 @@
   </form>
   <button class="btn btn-primary" id="requestButton">Submit</button>
 
-  <div>
+  <div id="responseInfo">
     Recommendations will appear here.
   </div>
 
   <script>
+  $.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+       return null;
+    }
+    return decodeURI(results[1]) || 0;
+  }
+
+  $("#password").val($.urlParam("password"))
+
+
     var settings = {
       'cache': false,
       'async': true,
@@ -63,11 +74,12 @@
         "code": $("#password").val(),
         "customer_id": $("#customerid").val(),
         "current_item_upc": $("#podid").val(),
-        "basket_upcs": ""
+        "basket_upcs": "4225"
       }
       console.log("Button clicked")
       $.ajax(settings).done((data) => {
         console.log(data)
+        $("#responseInfo").text(JSON.stringify(data, null, 2))
       })
     })
   </script>
